@@ -30,14 +30,15 @@ if [ -z "$YAML" ] || [ ! -f "$YAML" ] ; then
   exit 1;
 fi;
 
+mkdir -p /opt/VWM_Kaldi_Server/log
 
 if [ "$MASTER" == "localhost" ] ; then
   # start a local master
-  python2 ./kaldigstserver/master_server.py --port=$PORT 2>> ../log/master.log &
+  python2 /opt/VWM_Kaldi_Server/kaldigstserver/master_server.py --port=$PORT 2>> /opt/VWM_Kaldi_Server/log/master.log &
 fi
 
 #start worker and connect it to the master
-export GST_PLUGIN_PATH=/data/xfding/asr/gst-kaldi-nnet2-online/src/:/home/xfding/kaldi/src/gst-plugin/
+export GST_PLUGIN_PATH=/opt/VWM_Kaldi_Server/gst-kaldi-nnet2-online/src/:/opt/kaldi/src/gst-plugin/
 
 for i in {1..5}; do
 #for i in 1; do
