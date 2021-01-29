@@ -2,13 +2,8 @@
 
 work_path=$(dirname $(readlink -f $0))
 
-apt-get update && apt-get install -y  \
-    procps \
-    autoconf \
-    automake \
-    bzip2 \
-    g++ \
-    git \
+apt-get update && apt-get install -y --no-install-recommends \
+    apt-transport-https \
     gstreamer1.0-plugins-good \
     gstreamer1.0-tools \
     gstreamer1.0-pulseaudio \
@@ -18,28 +13,25 @@ apt-get update && apt-get install -y  \
     libatlas3-base \
     libgstreamer1.0-dev \
     libtool-bin \
-    make \
     python3 \
     python-pip \
     python-yaml \
     python-simplejson \
+    python-setuptools \
     python-gi \
-    subversion \
-    unzip \
-    wget \
     build-essential \
     python-dev \
-    sox \
     zlib1g-dev && \
     apt-get clean autoclean && \
     apt-get autoremove -y && \
     pip install ws4py==0.3.2 && \
-    pip install tornado
+    pip install tornado==4.5.3 && \
+    pip install futures && \
+    ln -s -f bash /bin/sh
 
-cd ~
+cd $work_path
 
-wget http://www.digip.org/jansson/releases/jansson-2.7.tar.bz2 && \
-    bunzip2 -c jansson-2.7.tar.bz2 | tar xf -  && \
+bunzip2 -c jansson-2.7.tar.bz2 | tar xf -  && \
     cd $work_path/jansson-2.7 && \
     ./configure && make -j $(nproc) && make check &&  make install && \
     echo "/usr/local/lib" >> /etc/ld.so.conf.d/jansson.conf && ldconfig && \
