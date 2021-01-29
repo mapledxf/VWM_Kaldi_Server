@@ -34,7 +34,7 @@ mkdir -p /opt/VWM_Kaldi_Server/log
 
 if [ "$MASTER" == "localhost" ] ; then
   # start a local master
-  python2 /opt/VWM_Kaldi_Server/kaldigstserver/master_server.py --port=$PORT 2>> /opt/VWM_Kaldi_Server/log/master.log &
+  python2 /opt/VWM_Kaldi_Server/kaldi-gstreamer-server/kaldigstserver/master_server.py --port=$PORT 2>> /opt/VWM_Kaldi_Server/log/master.log &
 fi
 
 #start worker and connect it to the master
@@ -42,5 +42,5 @@ export GST_PLUGIN_PATH=/opt/VWM_Kaldi_Server/gst-kaldi-nnet2-online/src/:/opt/ka
 
 for i in {1..5}; do
 #for i in 1; do
-	python2 ./kaldigstserver/worker.py -c $YAML -u ws://$MASTER:$PORT/worker/ws/speech 2>> ../log/worker$i.log &
+	python2 /opt/VWM_Kaldi_Server/kaldi-gstreamer-server/kaldigstserver/worker.py -c $YAML -u ws://$MASTER:$PORT/worker/ws/speech 2>> /opt/VWM_Kaldi_Server/log/worker$i.log &
 done

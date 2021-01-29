@@ -4,6 +4,7 @@ MAINTAINER Xuefeng Ding <xfding@vw-mobvoi.com>
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
     procps \
+    gstreamer-plugins-base1.0-dev \
     gstreamer1.0-plugins-good \
     gstreamer1.0-tools \
     gstreamer1.0-pulseaudio \
@@ -24,7 +25,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean autoclean && \
     apt-get autoremove -y 
 
-RUN pip install ws4py==0.3.2 && \
+RUN pip install wheel && \
+    pip install ws4py==0.3.2 && \
     pip install tornado==4.5.3 && \
     pip install futures && \
     ln -s -f bash /bin/sh
@@ -59,6 +61,7 @@ RUN rm -rf /opt/kaldi/.git && \
     find /opt/kaldi/tools/ -type f \( -not -name '*.so' -and -not -name '*.so*' \) -delete 
 
 RUN mkdir -p /opt/model/ && \
+    mkdir -p /opt/VWM_Kaldi_Server/log && \
     cd /opt
 
 RUN chmod +x /opt/VWM_Kaldi_Server/kaldi-gstreamer-server/start.sh && \
