@@ -1,0 +1,3 @@
+docker build - < Dockerfile
+docker run -it -p 9998:9998 -v /data/xfding/train_result/asr/ali/vosk:/opt/model 6e20136c8105 bash
+./start.sh -y /opt/model/nnet3.yaml
